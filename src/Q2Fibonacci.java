@@ -1,17 +1,42 @@
 import java.util.Scanner;
 
-public class Q2Fibonacci {
+public class Q2Fibonacci implements Questao {
+    private int n;
+    private final Scanner scanner;
+    private boolean isFibonacci;
+    private boolean readDataCalled;
+    private boolean processResultsCalled;
 
-    public boolean CalcFibonnaci(int n) {
+
+    public Q2Fibonacci() {
+        this.n = 0;
+        scanner = new Scanner(System.in);
+        isFibonacci = false;
+        readDataCalled = false;
+        processResultsCalled = false;
+    }
+
+    @Override
+    public void processResults() {
+
+        if (!readDataCalled) {
+            throw new IllegalStateException("all methods must be called in order (readData, processResults, getResults)");
+        }
+        processResultsCalled = true;
         int a = 0;
         int b = 1;
         int c;
 
-        while (true) {
+        boolean fibonacciFound = false;
+        boolean numberGreaterThanN = false;
+
+        while (!fibonacciFound && !numberGreaterThanN) {
             if (a == n) {
-                return true;
+                isFibonacci = true;
+                fibonacciFound = true;
             } else if (a > n) {
-                return false;
+                isFibonacci = false;
+                numberGreaterThanN = true;
             }
             c = a + b;
             a = b;
@@ -19,15 +44,21 @@ public class Q2Fibonacci {
         }
     }
 
-    public void getResults() {
-        Scanner scanner = new Scanner(System.in);
+    @Override
+    public void readData() {
+
         System.out.println("Digite um número inteiro para checar se faz parte da sequência Fibonacci: ");
-        int n = scanner.nextInt();
-        if (CalcFibonnaci(n)) {
-            System.out.println(n + " faz parte da sequência de Fibonacci");
-        } else {
-            System.out.println(n + " não faz parte da sequência de Fibonacci");
+        n = scanner.nextInt();
+        readDataCalled = true;
+
+    }
+
+    @Override
+    public String getResults() {
+        if (!readDataCalled || !processResultsCalled) {
+            throw new IllegalStateException("all methods must be called in order (readData, processResults, getResults)");
         }
+        return isFibonacci ? "O número " + n + " faz parte da sequência Fibonacci" : "O número " + n + " não faz parte da sequência Fibonacci";
     }
 
 }

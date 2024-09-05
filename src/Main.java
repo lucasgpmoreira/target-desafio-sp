@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -10,6 +11,7 @@ public class Main {
         Q5Inverter inverter = new Q5Inverter();
 
         while (true) {
+            System.out.println("--------------------");
             System.out.println("Olá equipe target, digite qual o número referente a questão que deseja executar: ");
             System.out.println("2 - Fibonacci");
             System.out.println("3 - Faturamento Funções");
@@ -20,16 +22,24 @@ public class Main {
 
             switch (option) {
                 case 2:
-                    fibonacci.getResults();
+                    fibonacci.readData();
+                    fibonacci.processResults();
+                    System.out.println(fibonacci.getResults());
                     break;
                 case 3:
-                    faturamentoFuncoes.getResults();
+                    faturamentoFuncoes.readData();
+                    faturamentoFuncoes.processResults();
+                    System.out.println(faturamentoFuncoes.getResults());
                     break;
                 case 4:
-                    faturamento.getResults();
+                    faturamento.readData();
+                    faturamento.processResults();
+                    System.out.println(faturamento.getResults());
                     break;
                 case 5:
-                    inverter.getResults();
+                    inverter.readData();
+                    inverter.processResults();
+                    System.out.println(inverter.getResults());
                     break;
                 default:
                     System.out.println("Opção inválida");
